@@ -1,6 +1,7 @@
 package com.example.linebot;
 
 import com.example.linebot.replier.Follow;
+import com.example.linebot.replier.Greet;
 import com.example.linebot.replier.Parrot;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -24,10 +25,18 @@ public class Callback {
         return follow.reply();
     }
 
-    // 文章で話しかけられた時に対応する
+    // 文章で話しかけられた時に挨拶を返す
     @EventMapping
     public Message handleMessage(MessageEvent<TextMessageContent> event){
-        Parrot parrot = new Parrot(event);
-        return parrot.reply();
+        TextMessageContent tmc = event.getMessage();
+        String text = tmc.getText();
+        switch (text){
+            case "やあ":
+                Greet greet = new Greet();
+                return greet.reply();
+            default:
+                Parrot parrot = new Parrot(event);
+                return parrot.reply();
+        }
     }
 }
