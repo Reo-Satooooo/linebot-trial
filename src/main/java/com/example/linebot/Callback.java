@@ -2,6 +2,7 @@ package com.example.linebot;
 
 import com.example.linebot.replier.Follow;
 import com.example.linebot.replier.Greet;
+import com.example.linebot.replier.Omikuji;
 import com.example.linebot.replier.Parrot;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -34,7 +35,12 @@ public class Callback {
             case "やあ":
                 Greet greet = new Greet();
                 return greet.reply();
-            default:
+
+            case "おみくじ":
+                Omikuji omikuji = new Omikuji();
+                return omikuji.reply();
+
+                default:
                 Parrot parrot = new Parrot(event);
                 return parrot.reply();
         }
